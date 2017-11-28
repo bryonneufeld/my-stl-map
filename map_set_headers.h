@@ -1,13 +1,13 @@
 #include <iostream>
 #include <memory>
 #include <vector>
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <time.h>
 #include <chrono>
 
 using namespace std;
 
-//for the btree
+//for the map
 template <class T, class U>
 struct node
 {
@@ -18,6 +18,7 @@ struct node
   node *parent;
 };
 
+//using a singleton design philosophy
 template <class T, class U>
 class map_set
 {
@@ -25,8 +26,8 @@ class map_set
 		//true for multimap, false for map
         map_set(bool multi_switch);
         ~map_set();
-		
-		static bool multi_query;	
+
+		static bool multi_query;
 
         void insert(T key, U asc_val);
 	    void remove(T key);
@@ -35,13 +36,13 @@ class map_set
 		void printQuiet();
 		bool check_sorted();
 		void search_key(T key);
-		
+
 		//the static here allows us to access outside of class members
 		//will point to the begin (left most key)
         static node<T,U> *begin;
 		//will point to the end (NULL that is 'right' of the right most)
         static node<T,U> *end;
-		
+
 		//friend overloads of increment, decrement (returns pointer to node):
 		template <class V, class W>
 		friend void incr(node<V,W> * &to_increment);
@@ -73,9 +74,9 @@ class map_set
 			else
 			{
 				return key1 > key2;
-			}			
+			}
 		}
-		
+
 		static bool parent_right_check(T key1, T key2)
 		{
 			if(multi_query)
@@ -85,9 +86,9 @@ class map_set
 			else
 			{
 				return key1 >= key2;
-			}			
+			}
 		}
-		
+
         node<T,U> *root;
 
 };
